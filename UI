@@ -80,6 +80,7 @@ local CurrBinding = Instance.new("TextLabel")
 UILIB.Name = "UILIB"
 UILIB.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 UILIB.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+UILIB.ResetOnSpawn = false
 
 Watermark.Name = "Watermark"
 Watermark.Parent = UILIB
@@ -224,7 +225,7 @@ CurrBinding.Size = UDim2.new(0.379, 0,0.071, 0)
 CurrBinding.Font = Enum.Font.GothamBold
 CurrBinding.Text = "Currently binding {1337}..."
 CurrBinding.TextColor3 = Color3.fromRGB(0, 0, 0)
-CurrBinding.TextSize = 29.000
+CurrBinding.TextSize = 30.000
 CurrBinding.Visible = false
 
 function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boolean, randomArrayColor: boolean)
