@@ -1,0 +1,391 @@
+local library = {
+	["Tabs"] = {},
+	["Bindings"] = {}
+}
+
+local bindlist = {
+	["Q"] = Enum.KeyCode.Q,
+	["W"] = Enum.KeyCode.W,
+	["E"] = Enum.KeyCode.E,
+	["R"] = Enum.KeyCode.R,
+	["T"] = Enum.KeyCode.T,
+	["Y"] = Enum.KeyCode.Y,
+	["U"] = Enum.KeyCode.U,
+	["I"] = Enum.KeyCode.I,
+	["O"] = Enum.KeyCode.O,
+	["P"] = Enum.KeyCode.P,
+	["A"] = Enum.KeyCode.A,
+	["S"] = Enum.KeyCode.S,
+	["D"] = Enum.KeyCode.D,
+	["F"] = Enum.KeyCode.F,
+	["G"] = Enum.KeyCode.G,
+	["H"] = Enum.KeyCode.H,
+	["J"] = Enum.KeyCode.J,
+	["K"] = Enum.KeyCode.K,
+	["L"] = Enum.KeyCode.L,
+	["Z"] = Enum.KeyCode.Z,
+	["X"] = Enum.KeyCode.X,
+	["C"] = Enum.KeyCode.C,
+	["V"] = Enum.KeyCode.V,
+	["B"] = Enum.KeyCode.B,
+	["N"] = Enum.KeyCode.N,
+	["M"] = Enum.KeyCode.M,
+	["1"] = Enum.KeyCode.One,
+	["2"] = Enum.KeyCode.Two,
+	["3"] = Enum.KeyCode.Three,
+	["4"] = Enum.KeyCode.Four,
+	["5"] = Enum.KeyCode.Five,
+	["6"] = Enum.KeyCode.Six,
+	["7"] = Enum.KeyCode.Seven,
+	["8"] = Enum.KeyCode.Eight,
+	["9"] = Enum.KeyCode.Nine,
+	["0"] = Enum.KeyCode.Zero,
+	["SPACE"] = Enum.KeyCode.Space,
+	["BACKSPACE"] = Enum.KeyCode.Backspace,
+	["ENTER"] = Enum.KeyCode.Return,
+}
+
+local colors = {Color3.fromRGB(255, 64, 0), Color3.fromRGB(0, 179, 255), Color3.fromRGB(47, 255, 0), Color3.fromRGB(255, 128, 0), Color3.fromRGB(255, 255, 0), Color3.fromRGB(217, 0, 255), Color3.fromRGB(255, 134, 207)}
+
+function findbind(key)
+	for i,v in pairs(bindlist) do
+		if v == key then
+			return i
+		end
+	end
+	return "None"
+end
+
+local UILIB = Instance.new("ScreenGui")
+local Watermark = Instance.new("TextLabel")
+local Tabs = Instance.new("Folder")
+local TabList = Instance.new("Frame")
+local UIListLayout = Instance.new("UIListLayout")
+local TabHandle = Instance.new("Frame")
+local tabname = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+local titlecoverup = Instance.new("Frame")
+local tabback = Instance.new("Frame")
+local UIListLayout_2 = Instance.new("UIListLayout")
+local ButtonHandle = Instance.new("TextButton")
+local AButtonHandle = Instance.new("TextButton")
+local toggled = Instance.new("BoolValue")
+
+local ArrayList = Instance.new("Frame")
+local UIListLayout_3 = Instance.new("UIListLayout")
+local Handle = Instance.new("TextLabel")
+
+local CurrBinding = Instance.new("TextLabel")
+
+UILIB.Name = "UILIB"
+UILIB.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+UILIB.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Watermark.Name = "Watermark"
+Watermark.Parent = UILIB
+Watermark.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+Watermark.BackgroundTransparency = 1.000
+Watermark.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Watermark.BorderSizePixel = 0
+Watermark.Position = UDim2.new(0.0162213743, 0, 0.918522239, 0)
+Watermark.Size = UDim2.new(0.111, 0,0.059, 0)
+Watermark.Visible = false
+Watermark.Font = Enum.Font.GothamBold
+Watermark.Text = "Nemesis"
+Watermark.TextColor3 = Color3.fromRGB(0, 255, 119)
+Watermark.TextSize = 25.000
+
+Tabs.Name = "Tabs"
+Tabs.Parent = UILIB
+
+TabList.Name = "TabList"
+TabList.Parent = Tabs
+TabList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TabList.BackgroundTransparency = 1.000
+TabList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TabList.BorderSizePixel = 0
+TabList.Position = UDim2.new(0.0601145029, 0, 0.0182186235, 0)
+TabList.Size = UDim2.new(0.873, 0,0.84, 0)
+
+UIListLayout.Parent = TabList
+UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 20)
+
+TabHandle.Name = "TabHandle"
+TabHandle.Parent = TabList
+TabHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TabHandle.BackgroundTransparency = 1.000
+TabHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TabHandle.BorderSizePixel = 0
+TabHandle.Position = UDim2.new(0.145038173, 0, 0.0182186235, 0)
+TabHandle.Size = UDim2.new(0.164, 0,1, 0)
+TabHandle.Visible = false
+
+tabname.Name = "tabname"
+tabname.Parent = TabHandle
+tabname.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+tabname.BorderColor3 = Color3.fromRGB(0, 0, 0)
+tabname.BorderSizePixel = 0
+tabname.Size = UDim2.new(1, 0,0.055, 0)
+tabname.ZIndex = 2
+tabname.Font = Enum.Font.Gotham
+tabname.Text = "TabHandle"
+tabname.TextColor3 = Color3.fromRGB(0, 255, 119)
+tabname.TextSize = 16.000
+
+UICorner.Parent = tabname
+
+titlecoverup.Name = "titlecoverup"
+titlecoverup.Parent = TabHandle
+titlecoverup.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+titlecoverup.BorderColor3 = Color3.fromRGB(0, 0, 0)
+titlecoverup.BorderSizePixel = 0
+titlecoverup.Position = UDim2.new(0, 0, 0.0299999993, 0)
+titlecoverup.Size = UDim2.new(1, 0,0.027, 0)
+
+tabback.Name = "tabback"
+tabback.Parent = TabHandle
+tabback.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+tabback.BackgroundTransparency = 1.000
+tabback.BorderColor3 = Color3.fromRGB(0, 0, 0)
+tabback.BorderSizePixel = 0
+tabback.Position = UDim2.new(0, 0, 0.052516412, 0)
+tabback.Size = UDim2.new(1, 0,1.043, 0)
+
+UIListLayout_2.Parent = tabback
+UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+
+ButtonHandle.Name = "ButtonHandle"
+ButtonHandle.Parent = tabback
+ButtonHandle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+ButtonHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ButtonHandle.BorderSizePixel = 0
+ButtonHandle.Size = UDim2.new(1, 0,0.058, 0)
+ButtonHandle.Font = Enum.Font.Gotham
+ButtonHandle.Text = "Feature1"
+ButtonHandle.TextColor3 = Color3.fromRGB(255, 255, 255)
+ButtonHandle.TextSize = 14.000
+ButtonHandle.Visible = false
+
+toggled.Name = "IsToggled"
+toggled.Parent = ButtonHandle
+toggled.Value = false
+
+AButtonHandle.Name = "AButtonHandle"
+AButtonHandle.Parent = tabback
+AButtonHandle.BackgroundColor3 = Color3.fromRGB(0, 255, 119)
+AButtonHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+AButtonHandle.BorderSizePixel = 0
+AButtonHandle.Size = UDim2.new(1, 0,0.058, 0)
+AButtonHandle.Font = Enum.Font.Gotham
+AButtonHandle.Text = "Feature2"
+AButtonHandle.TextColor3 = Color3.fromRGB(0, 0, 0)
+AButtonHandle.TextSize = 14.000
+AButtonHandle.Visible = false
+
+
+ArrayList.Name = "ArrayList"
+ArrayList.Parent = UILIB
+ArrayList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ArrayList.BackgroundTransparency = 1.000
+ArrayList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ArrayList.BorderSizePixel = 0
+ArrayList.Position = UDim2.new(0.797709942, 0, 0, 0)
+ArrayList.Size = UDim2.new(0.201, 0,1, 0)
+
+UIListLayout_3.Parent = ArrayList
+UIListLayout_3.HorizontalAlignment = Enum.HorizontalAlignment.Right
+UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_3.VerticalAlignment = Enum.VerticalAlignment.Bottom
+
+Handle.Name = "Handle"
+Handle.Parent = ArrayList
+Handle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Handle.BackgroundTransparency = 1.000
+Handle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Handle.BorderSizePixel = 0
+Handle.Position = UDim2.new(0.161137447, 0, 0, 0)
+Handle.Size = UDim2.new(0.725, 0,0.032, 0)
+Handle.Visible = false
+Handle.Font = Enum.Font.GothamBold
+Handle.TextColor3 = Color3.fromRGB(255, 149, 0)
+Handle.TextSize = 13.000
+Handle.TextXAlignment = Enum.TextXAlignment.Right
+
+CurrBinding.Name = "CurrBinding"
+CurrBinding.Parent = UILIB
+CurrBinding.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CurrBinding.BackgroundTransparency = 1.000
+CurrBinding.BorderColor3 = Color3.fromRGB(0, 0, 0)
+CurrBinding.BorderSizePixel = 0
+CurrBinding.Position = UDim2.new(0.310114503, 0, 0.912955463, 0)
+CurrBinding.Size = UDim2.new(0.379, 0,0.071, 0)
+CurrBinding.Font = Enum.Font.GothamBold
+CurrBinding.Text = "Currently binding {1337}..."
+CurrBinding.TextColor3 = Color3.fromRGB(0, 0, 0)
+CurrBinding.TextSize = 29.000
+CurrBinding.Visible = false
+
+function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boolean, randomArrayColor: boolean)
+	local window = {}
+
+	Watermark.Text = name
+	Watermark.TextColor3 = maincolor
+	tabname.TextColor3 = maincolor
+	Handle.TextColor3 = maincolor
+	CurrBinding.TextColor3 = maincolor
+	
+	if corneredTabs == false then
+		titlecoverup:Destroy()
+		UICorner:Destroy()
+	end
+
+	function window:AddTab(name)
+		local tab = {}
+
+		local newtab = TabHandle:Clone()
+		newtab.Name = "Tab-"..name
+		newtab.Parent = TabList
+		newtab.tabname.Text = name
+
+		table.insert(library['Tabs'], newtab)
+
+		tab.Object = newtab
+		
+		function tab:AddButton(name, func)
+			local btn = {}
+			
+			local newbtn = ButtonHandle:Clone()
+			newbtn.Text = name
+			newbtn.Name = "Btn-"..name
+			newbtn.Parent = newtab.tabback
+			newbtn.Visible = true
+			
+			local newArrayObj = Handle:Clone()
+			newArrayObj.Parent = ArrayList
+			newArrayObj.Name = "Array-"..name
+			newArrayObj.Text = name
+			if randomArrayColor == true then
+				newArrayObj.TextColor3 = colors[math.random(1,#colors)]
+			end
+			
+			btn.Object = newbtn
+			btn.Module = name
+			btn.Function = func
+			btn.KeyBind = nil
+			
+			function btn:Toggle()
+				newArrayObj.Visible = not newbtn.IsToggled.Value
+				if newbtn.IsToggled.Value == false then
+					newbtn.IsToggled.Value = true
+					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {BackgroundColor3=maincolor})
+					local t2 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {TextColor3=Color3.fromRGB(0,0,0)})
+					t1:Play(); t2:Play()
+					task.spawn(function()
+						func(true)
+					end)
+				else
+					newbtn.IsToggled.Value = false
+					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {BackgroundColor3=Color3.fromRGB(40, 40, 40)})
+					local t2 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {TextColor3=Color3.fromRGB(255,255,255)})
+					t1:Play(); t2:Play()
+					task.spawn(function()
+						func(false)
+					end)
+				end
+			end
+			
+			newbtn.MouseEnter:Connect(function()
+				if newbtn.IsToggled.Value == false then
+					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(1), {TextColor3=maincolor})
+					t1:Play()
+				end
+			end)
+			newbtn.MouseLeave:Connect(function()
+				if newbtn.IsToggled.Value == false then
+					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(1), {TextColor3=Color3.fromRGB(255,255,255)})
+					t1:Play()
+				end
+			end)
+			newbtn.MouseButton1Click:Connect(function()
+				btn:Toggle()
+			end)
+			newbtn.MouseButton2Click:Connect(function()
+				CurrBinding.Text = "Currently binding "..name.."..."
+				CurrBinding.Visible = true
+				local keybound = nil
+				game:GetService("UserInputService").InputBegan:Connect(function(input)
+					if keybound == nil then
+						if input.KeyCode == Enum.KeyCode.Return then
+							keybound = Enum.KeyCode.Unknown
+						else
+							if findbind(input.KeyCode) ~= "None" then
+								keybound = input.KeyCode
+							end
+						end
+					end
+				end)
+				task.spawn(function()
+					repeat
+						wait(0.05)
+					until keybound ~= nil
+					if keybound == Enum.KeyCode.Unknown then
+						if table.find(library['Bindings'], btn) then
+							table.remove(library['Bindings'], table.find(library['Bindings'], btn))
+						end
+						CurrBinding.Text = name.." has been unbinded!"
+						task.spawn(function()
+							wait(1.25)
+							local t1 = game:GetService("TweenService"):Create(CurrBinding, TweenInfo.new(1), {TextTransparency=1})
+							t1:Play()
+							t1.Completed:Connect(function()
+								CurrBinding.Visible = false
+								CurrBinding.TextTransparency = 0
+							end)
+						end)
+					else
+						btn.KeyBind = keybound
+						table.insert(library['Bindings'], btn)
+						CurrBinding.Text = name.." has been binded to '"..findbind(keybound).."'!"
+						task.spawn(function()
+							wait(1.25)
+							local t1 = game:GetService("TweenService"):Create(CurrBinding, TweenInfo.new(1), {TextTransparency=1})
+							t1:Play()
+							t1.Completed:Connect(function()
+								CurrBinding.Visible = false
+								CurrBinding.TextTransparency = 0
+							end)
+						end)
+					end
+				end)
+			end)
+			
+			return btn
+		end
+		
+		return tab
+	end
+	
+	return window
+end
+
+local enabled = false
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.RightShift then
+		enabled = not enabled
+		Watermark.Visible = enabled
+		for i,v in pairs(library['Tabs']) do
+			v.Visible = enabled
+		end
+	end
+	
+	for i,v in pairs(library['Bindings']) do
+		if v.KeyBind == input.KeyCode then
+			v:Toggle()
+		end
+	end
+end)
+
+return library
