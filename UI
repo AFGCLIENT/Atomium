@@ -228,8 +228,6 @@ CurrBinding.TextColor3 = Color3.fromRGB(0, 0, 0)
 CurrBinding.TextSize = 30.000
 CurrBinding.Visible = false
 
-local enabled = false
-
 function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boolean, randomArrayColor: boolean)
 	local window = {}
 
@@ -243,14 +241,6 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 		titlecoverup:Destroy()
 		UICorner:Destroy()
 	end
-
-        function window:toggleui()
-            enabled = not enabled
-            Watermark.Visible = enabled
-            for i,v in pairs(library['Tabs']) do
-                v.Visible = enabled
-            end
-        end
 
 	function window:AddTab(name)
 		local tab = {}
@@ -381,13 +371,19 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 	return window
 end
 
+local enabled = false
+
+function toggleui()
+    enabled = not enabled
+    Watermark.Visible = enabled
+    for i,v in pairs(library['Tabs']) do
+        v.Visible = enabled
+    end
+end
+
 game:GetService("UserInputService").InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.RightShift then
-            enabled = not enabled
-            Watermark.Visible = enabled
-            for i,v in pairs(library['Tabs']) do
-                v.Visible = enabled
-            end
+		toggleui()
 	end
 	
 	for i,v in pairs(library['Bindings']) do
@@ -401,7 +397,7 @@ toggleui()
 
 game:GetService("StarterGui"):SetCore("SendNotification",{
     Title = "Atomium Client",
-    Text = "discord.gg/Uy85kjjp2Y",
+    Text = "Please Click [Right Shift] For UI",
     Duration = 5
 })
 
