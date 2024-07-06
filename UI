@@ -397,7 +397,7 @@ toggleui()
 
 game:GetService("StarterGui"):SetCore("SendNotification",{
     Title = "Atomium Client",
-    Text = "Please Click [Right Shift] For UI",
+    Text = "discord.gg/Uy85kjjp2Y",
     Duration = 5
 })
 
