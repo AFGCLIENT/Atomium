@@ -374,6 +374,7 @@ end
 local enabled = false
 
 function toggleui()
+    enabled = not enabled
     Watermark.Visible = enabled
     for i,v in pairs(library['Tabs']) do
         v.Visible = enabled
