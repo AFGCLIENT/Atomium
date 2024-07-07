@@ -373,17 +373,13 @@ end
 
 local enabled = false
 
-function toggleui()
-    enabled = not enabled
-    Watermark.Visible = enabled
-    for i,v in pairs(library['Tabs']) do
-        v.Visible = enabled
-    end
-end
-
 game:GetService("UserInputService").InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.RightShift then
-		toggleui()
+		enabled = not enabled
+		Watermark.Visible = enabled
+		for i,v in pairs(library['Tabs']) do
+			v.Visible = enabled
+		end
 	end
 	
 	for i,v in pairs(library['Bindings']) do
@@ -392,13 +388,5 @@ game:GetService("UserInputService").InputBegan:Connect(function(input)
 		end
 	end
 end)
-
-toggleui()
-
-game:GetService("StarterGui"):SetCore("SendNotification",{
-    Title = "Atomium Client",
-    Text = "Please Click RIGHTSHIFT",
-    Duration = 5
-})
 
 return library
