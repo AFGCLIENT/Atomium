@@ -71,6 +71,7 @@ local ButtonHandle = Instance.new("TextButton")
 local AButtonHandle = Instance.new("TextButton")
 local toggled = Instance.new("BoolValue")
 
+local ArrayList = Instance.new("Frame")
 local UIListLayout_3 = Instance.new("UIListLayout")
 local Handle = Instance.new("TextLabel")
 
@@ -185,6 +186,34 @@ AButtonHandle.TextSize = 14.000
 AButtonHandle.Visible = false
 
 
+ArrayList.Name = "ArrayList"
+ArrayList.Parent = UILIB
+ArrayList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ArrayList.BackgroundTransparency = 1.000
+ArrayList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ArrayList.BorderSizePixel = 0
+ArrayList.Position = UDim2.new(0.797709942, 0, 0, 0)
+ArrayList.Size = UDim2.new(0.201, 0,1, 0)
+
+UIListLayout_3.Parent = ArrayList
+UIListLayout_3.HorizontalAlignment = Enum.HorizontalAlignment.Right
+UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_3.VerticalAlignment = Enum.VerticalAlignment.Bottom
+
+Handle.Name = "Handle"
+Handle.Parent = ArrayList
+Handle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Handle.BackgroundTransparency = 1.000
+Handle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Handle.BorderSizePixel = 0
+Handle.Position = UDim2.new(0.161137447, 0, 0, 0)
+Handle.Size = UDim2.new(0.725, 0,0.032, 0)
+Handle.Visible = false
+Handle.Font = Enum.Font.GothamBold
+Handle.TextColor3 = Color3.fromRGB(255, 149, 0)
+Handle.TextSize = 13.000
+Handle.TextXAlignment = Enum.TextXAlignment.Right
+
 CurrBinding.Name = "CurrBinding"
 CurrBinding.Parent = UILIB
 CurrBinding.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -199,7 +228,7 @@ CurrBinding.TextColor3 = Color3.fromRGB(0, 0, 0)
 CurrBinding.TextSize = 30.000
 CurrBinding.Visible = false
 
-function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boolean)
+function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boolean, randomArrayColor: boolean)
 	local window = {}
 
 	Watermark.Text = name
@@ -208,7 +237,7 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 	Handle.TextColor3 = maincolor
 	CurrBinding.TextColor3 = maincolor
 	
-	if not corneredTabs then
+	if corneredTabs == false then
 		titlecoverup:Destroy()
 		UICorner:Destroy()
 	end
@@ -234,21 +263,22 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 			newbtn.Parent = newtab.tabback
 			newbtn.Visible = true
 			
+			local newArrayObj = Handle:Clone()
+			newArrayObj.Parent = ArrayList
+			newArrayObj.Name = "Array-"..name
+			newArrayObj.Text = name
+			if randomArrayColor == true then
+				newArrayObj.TextColor3 = colors[math.random(1,#colors)]
+			end
+			
 			btn.Object = newbtn
 			btn.Module = name
 			btn.Function = func
 			btn.KeyBind = nil
 			
 			function btn:Toggle()
-				if newbtn.IsToggled.Value then
-					newbtn.IsToggled.Value = false
-					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {BackgroundColor3=Color3.fromRGB(40, 40, 40)})
-					local t2 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {TextColor3=Color3.fromRGB(255,255,255)})
-					t1:Play(); t2:Play()
-					task.spawn(function()
-						func(false)
-					end)
-				else
+				newArrayObj.Visible = not newbtn.IsToggled.Value
+				if newbtn.IsToggled.Value == false then
 					newbtn.IsToggled.Value = true
 					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {BackgroundColor3=maincolor})
 					local t2 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {TextColor3=Color3.fromRGB(0,0,0)})
@@ -256,17 +286,25 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 					task.spawn(function()
 						func(true)
 					end)
+				else
+					newbtn.IsToggled.Value = false
+					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {BackgroundColor3=Color3.fromRGB(40, 40, 40)})
+					local t2 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {TextColor3=Color3.fromRGB(255,255,255)})
+					t1:Play(); t2:Play()
+					task.spawn(function()
+						func(false)
+					end)
 				end
 			end
 			
 			newbtn.MouseEnter:Connect(function()
-				if not newbtn.IsToggled.Value then
+				if newbtn.IsToggled.Value == false then
 					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(1), {TextColor3=maincolor})
 					t1:Play()
 				end
 			end)
 			newbtn.MouseLeave:Connect(function()
-				if not newbtn.IsToggled.Value then
+				if newbtn.IsToggled.Value == false then
 					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(1), {TextColor3=Color3.fromRGB(255,255,255)})
 					t1:Play()
 				end
@@ -289,15 +327,6 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 						end
 					end
 				end)
-			end)
-		end
-
-		return tab
-	end
-
-	return window
-end
-
 				task.spawn(function()
 					repeat
 						wait(0.05)
