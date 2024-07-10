@@ -366,3 +366,5 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 	
 	return window
 end
+
+print("dwdwdwdwdwdwd")
