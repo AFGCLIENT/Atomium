@@ -3,7 +3,6 @@ local library = {
 	["Bindings"] = {}
 }
 
--- Keybindings list
 local bindlist = {
 	["Q"] = Enum.KeyCode.Q,
 	["W"] = Enum.KeyCode.W,
@@ -46,10 +45,8 @@ local bindlist = {
 	["ENTER"] = Enum.KeyCode.Return,
 }
 
--- Colors for UI elements
 local colors = {Color3.fromRGB(255, 64, 0), Color3.fromRGB(0, 179, 255), Color3.fromRGB(47, 255, 0), Color3.fromRGB(255, 128, 0), Color3.fromRGB(255, 255, 0), Color3.fromRGB(217, 0, 255), Color3.fromRGB(255, 134, 207)}
 
--- Function to find the corresponding key for a given KeyCode
 function findbind(key)
 	for i,v in pairs(bindlist) do
 		if v == key then
@@ -59,7 +56,6 @@ function findbind(key)
 	return "None"
 end
 
--- Create the main ScreenGui and UI elements
 local UILIB = Instance.new("ScreenGui")
 local Watermark = Instance.new("TextLabel")
 local Tabs = Instance.new("Folder")
@@ -72,6 +68,7 @@ local titlecoverup = Instance.new("Frame")
 local tabback = Instance.new("Frame")
 local UIListLayout_2 = Instance.new("UIListLayout")
 local ButtonHandle = Instance.new("TextButton")
+local AButtonHandle = Instance.new("TextButton")
 local toggled = Instance.new("BoolValue")
 
 local ArrayList = Instance.new("Frame")
@@ -80,7 +77,6 @@ local Handle = Instance.new("TextLabel")
 
 local CurrBinding = Instance.new("TextLabel")
 
--- Set up the ScreenGui and UI element properties
 UILIB.Name = "UILIB"
 UILIB.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 UILIB.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -94,6 +90,7 @@ Watermark.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Watermark.BorderSizePixel = 0
 Watermark.Position = UDim2.new(0.0162213743, 0, 0.918522239, 0)
 Watermark.Size = UDim2.new(0.111, 0,0.059, 0)
+Watermark.Visible = false
 Watermark.Font = Enum.Font.GothamBold
 Watermark.Text = "Nemesis"
 Watermark.TextColor3 = Color3.fromRGB(0, 255, 119)
@@ -124,6 +121,7 @@ TabHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TabHandle.BorderSizePixel = 0
 TabHandle.Position = UDim2.new(0.145038173, 0, 0.0182186235, 0)
 TabHandle.Size = UDim2.new(0.164, 0,1, 0)
+TabHandle.Visible = false
 
 tabname.Name = "tabname"
 tabname.Parent = TabHandle
@@ -175,6 +173,19 @@ toggled.Name = "IsToggled"
 toggled.Parent = ButtonHandle
 toggled.Value = false
 
+AButtonHandle.Name = "AButtonHandle"
+AButtonHandle.Parent = tabback
+AButtonHandle.BackgroundColor3 = Color3.fromRGB(0, 255, 119)
+AButtonHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+AButtonHandle.BorderSizePixel = 0
+AButtonHandle.Size = UDim2.new(1, 0,0.058, 0)
+AButtonHandle.Font = Enum.Font.Gotham
+AButtonHandle.Text = "Feature2"
+AButtonHandle.TextColor3 = Color3.fromRGB(0, 0, 0)
+AButtonHandle.TextSize = 14.000
+AButtonHandle.Visible = false
+
+
 ArrayList.Name = "ArrayList"
 ArrayList.Parent = UILIB
 ArrayList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -195,28 +206,28 @@ Handle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Handle.BackgroundTransparency = 1.000
 Handle.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Handle.BorderSizePixel = 0
-Handle.Size = UDim2.new(1, 0,0.081, 0)
-Handle.ZIndex = 2
-Handle.Font = Enum.Font.Gotham
-Handle.Text = "Handle"
-Handle.TextColor3 = Color3.fromRGB(0, 255, 119)
-Handle.TextSize = 16.000
+Handle.Position = UDim2.new(0.161137447, 0, 0, 0)
+Handle.Size = UDim2.new(0.725, 0,0.032, 0)
+Handle.Visible = false
+Handle.Font = Enum.Font.GothamBold
+Handle.TextColor3 = Color3.fromRGB(255, 149, 0)
+Handle.TextSize = 13.000
+Handle.TextXAlignment = Enum.TextXAlignment.Right
 
 CurrBinding.Name = "CurrBinding"
 CurrBinding.Parent = UILIB
-CurrBinding.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+CurrBinding.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CurrBinding.BackgroundTransparency = 1.000
 CurrBinding.BorderColor3 = Color3.fromRGB(0, 0, 0)
 CurrBinding.BorderSizePixel = 0
-CurrBinding.Position = UDim2.new(0.329359412, 0, 0.89625603, 0)
-CurrBinding.Size = UDim2.new(0.341, 0,0.084, 0)
-CurrBinding.ZIndex = 2
+CurrBinding.Position = UDim2.new(0.310114503, 0, 0.912955463, 0)
+CurrBinding.Size = UDim2.new(0.379, 0,0.071, 0)
 CurrBinding.Font = Enum.Font.GothamBold
-CurrBinding.Text = "Currently binding . . ."
-CurrBinding.TextColor3 = Color3.fromRGB(0, 255, 119)
-CurrBinding.TextSize = 16.000
-CurrBinding.TextWrapped = true
+CurrBinding.Text = "Currently binding {1337}..."
+CurrBinding.TextColor3 = Color3.fromRGB(0, 0, 0)
+CurrBinding.TextSize = 30.000
+CurrBinding.Visible = false
 
--- Function to create the window with tabs and buttons
 function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boolean, randomArrayColor: boolean)
 	local window = {}
 
@@ -231,12 +242,6 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 		UICorner:Destroy()
 	end
 
-	-- Make Watermark and Tabs visible by default
-	Watermark.Visible = true
-	for i,v in pairs(library['Tabs']) do
-		v.Visible = true
-	end
-
 	function window:AddTab(name)
 		local tab = {}
 
@@ -244,7 +249,6 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 		newtab.Name = "Tab-"..name
 		newtab.Parent = TabList
 		newtab.tabname.Text = name
-		newtab.Visible = true -- Ensure tab is visible
 
 		table.insert(library['Tabs'], newtab)
 
@@ -367,4 +371,22 @@ function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boo
 	return window
 end
 
-print("dwdwdwdwdwdwd")
+local enabled = false
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.RightShift then
+		enabled = not enabled
+		Watermark.Visible = enabled
+		for i,v in pairs(library['Tabs']) do
+			v.Visible = enabled
+		end
+	end
+	
+	for i,v in pairs(library['Bindings']) do
+		if v.KeyBind == input.KeyCode then
+			v:Toggle()
+		end
+	end
+end)
+
+return library
