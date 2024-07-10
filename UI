@@ -1,1 +1,308 @@
+local library = {
+	["Tabs"] = {},
+	["Bindings"] = {}
+}
 
+local bindlist = {
+	["Q"] = Enum.KeyCode.Q,
+	["W"] = Enum.KeyCode.W,
+	["E"] = Enum.KeyCode.E,
+	["R"] = Enum.KeyCode.R,
+	["T"] = Enum.KeyCode.T,
+	["Y"] = Enum.KeyCode.Y,
+	["U"] = Enum.KeyCode.U,
+	["I"] = Enum.KeyCode.I,
+	["O"] = Enum.KeyCode.O,
+	["P"] = Enum.KeyCode.P,
+	["A"] = Enum.KeyCode.A,
+	["S"] = Enum.KeyCode.S,
+	["D"] = Enum.KeyCode.D,
+	["F"] = Enum.KeyCode.F,
+	["G"] = Enum.KeyCode.G,
+	["H"] = Enum.KeyCode.H,
+	["J"] = Enum.KeyCode.J,
+	["K"] = Enum.KeyCode.K,
+	["L"] = Enum.KeyCode.L,
+	["Z"] = Enum.KeyCode.Z,
+	["X"] = Enum.KeyCode.X,
+	["C"] = Enum.KeyCode.C,
+	["V"] = Enum.KeyCode.V,
+	["B"] = Enum.KeyCode.B,
+	["N"] = Enum.KeyCode.N,
+	["M"] = Enum.KeyCode.M,
+	["1"] = Enum.KeyCode.One,
+	["2"] = Enum.KeyCode.Two,
+	["3"] = Enum.KeyCode.Three,
+	["4"] = Enum.KeyCode.Four,
+	["5"] = Enum.KeyCode.Five,
+	["6"] = Enum.KeyCode.Six,
+	["7"] = Enum.KeyCode.Seven,
+	["8"] = Enum.KeyCode.Eight,
+	["9"] = Enum.KeyCode.Nine,
+	["0"] = Enum.KeyCode.Zero,
+	["SPACE"] = Enum.KeyCode.Space,
+	["BACKSPACE"] = Enum.KeyCode.Backspace,
+	["ENTER"] = Enum.KeyCode.Return,
+}
+
+local colors = {Color3.fromRGB(255, 64, 0), Color3.fromRGB(0, 179, 255), Color3.fromRGB(47, 255, 0), Color3.fromRGB(255, 128, 0), Color3.fromRGB(255, 255, 0), Color3.fromRGB(217, 0, 255), Color3.fromRGB(255, 134, 207)}
+
+function findbind(key)
+	for i,v in pairs(bindlist) do
+		if v == key then
+			return i
+		end
+	end
+	return "None"
+end
+
+local UILIB = Instance.new("ScreenGui")
+local Watermark = Instance.new("TextLabel")
+local Tabs = Instance.new("Folder")
+local TabList = Instance.new("Frame")
+local UIListLayout = Instance.new("UIListLayout")
+local TabHandle = Instance.new("Frame")
+local tabname = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+local titlecoverup = Instance.new("Frame")
+local tabback = Instance.new("Frame")
+local UIListLayout_2 = Instance.new("UIListLayout")
+local ButtonHandle = Instance.new("TextButton")
+local AButtonHandle = Instance.new("TextButton")
+local toggled = Instance.new("BoolValue")
+
+local ArrayList = Instance.new("Frame")
+local UIListLayout_3 = Instance.new("UIListLayout")
+local Handle = Instance.new("TextLabel")
+
+local CurrBinding = Instance.new("TextLabel")
+
+UILIB.Name = "UILIB"
+UILIB.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+UILIB.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+UILIB.ResetOnSpawn = false
+
+Watermark.Name = "Watermark"
+Watermark.Parent = UILIB
+Watermark.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+Watermark.BackgroundTransparency = 1.000
+Watermark.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Watermark.BorderSizePixel = 0
+Watermark.Position = UDim2.new(0.0162213743, 0, 0.918522239, 0)
+Watermark.Size = UDim2.new(0.111, 0,0.059, 0)
+Watermark.Visible = false
+Watermark.Font = Enum.Font.GothamBold
+Watermark.Text = "Nemesis"
+Watermark.TextColor3 = Color3.fromRGB(0, 255, 119)
+Watermark.TextSize = 25.000
+
+Tabs.Name = "Tabs"
+Tabs.Parent = UILIB
+
+TabList.Name = "TabList"
+TabList.Parent = Tabs
+TabList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TabList.BackgroundTransparency = 1.000
+TabList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TabList.BorderSizePixel = 0
+TabList.Position = UDim2.new(0.0601145029, 0, 0.0182186235, 0)
+TabList.Size = UDim2.new(0.873, 0,0.84, 0)
+
+UIListLayout.Parent = TabList
+UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 20)
+
+TabHandle.Name = "TabHandle"
+TabHandle.Parent = TabList
+TabHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TabHandle.BackgroundTransparency = 1.000
+TabHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TabHandle.BorderSizePixel = 0
+TabHandle.Position = UDim2.new(0.145038173, 0, 0.0182186235, 0)
+TabHandle.Size = UDim2.new(0.164, 0,1, 0)
+TabHandle.Visible = false
+
+tabname.Name = "tabname"
+tabname.Parent = TabHandle
+tabname.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+tabname.BorderColor3 = Color3.fromRGB(0, 0, 0)
+tabname.BorderSizePixel = 0
+tabname.Size = UDim2.new(1, 0,0.055, 0)
+tabname.ZIndex = 2
+tabname.Font = Enum.Font.Gotham
+tabname.Text = "TabHandle"
+tabname.TextColor3 = Color3.fromRGB(0, 255, 119)
+tabname.TextSize = 16.000
+
+UICorner.Parent = tabname
+
+titlecoverup.Name = "titlecoverup"
+titlecoverup.Parent = TabHandle
+titlecoverup.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+titlecoverup.BorderColor3 = Color3.fromRGB(0, 0, 0)
+titlecoverup.BorderSizePixel = 0
+titlecoverup.Position = UDim2.new(0, 0, 0.0299999993, 0)
+titlecoverup.Size = UDim2.new(1, 0,0.027, 0)
+
+tabback.Name = "tabback"
+tabback.Parent = TabHandle
+tabback.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+tabback.BackgroundTransparency = 1.000
+tabback.BorderColor3 = Color3.fromRGB(0, 0, 0)
+tabback.BorderSizePixel = 0
+tabback.Position = UDim2.new(0, 0, 0.052516412, 0)
+tabback.Size = UDim2.new(1, 0,1.043, 0)
+
+UIListLayout_2.Parent = tabback
+UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+
+ButtonHandle.Name = "ButtonHandle"
+ButtonHandle.Parent = tabback
+ButtonHandle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+ButtonHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ButtonHandle.BorderSizePixel = 0
+ButtonHandle.Size = UDim2.new(1, 0,0.058, 0)
+ButtonHandle.Font = Enum.Font.Gotham
+ButtonHandle.Text = "Feature1"
+ButtonHandle.TextColor3 = Color3.fromRGB(255, 255, 255)
+ButtonHandle.TextSize = 14.000
+ButtonHandle.Visible = false
+
+toggled.Name = "IsToggled"
+toggled.Parent = ButtonHandle
+toggled.Value = false
+
+AButtonHandle.Name = "AButtonHandle"
+AButtonHandle.Parent = tabback
+AButtonHandle.BackgroundColor3 = Color3.fromRGB(0, 255, 119)
+AButtonHandle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+AButtonHandle.BorderSizePixel = 0
+AButtonHandle.Size = UDim2.new(1, 0,0.058, 0)
+AButtonHandle.Font = Enum.Font.Gotham
+AButtonHandle.Text = "Feature2"
+AButtonHandle.TextColor3 = Color3.fromRGB(0, 0, 0)
+AButtonHandle.TextSize = 14.000
+AButtonHandle.Visible = false
+
+-- Define colors for different themes (keeping only CottonCandy)
+local colors = {
+    ["CottonCandy"] = {Color3.fromRGB(255, 64, 0), Color3.fromRGB(0, 179, 255), Color3.fromRGB(47, 255, 0), Color3.fromRGB(255, 128, 0), Color3.fromRGB(255, 255, 0), Color3.fromRGB(217, 0, 255), Color3.fromRGB(255, 134, 207)}
+}
+
+ArrayList.Name = "ArrayList"
+ArrayList.Parent = UILIB
+ArrayList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ArrayList.BackgroundTransparency = 1.000
+ArrayList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ArrayList.BorderSizePixel = 0
+ArrayList.Position = UDim2.new(0.789715409, 0, 0.042019546, 0)
+ArrayList.Size = UDim2.new(0.196, 0,0.853, 0)
+
+UIListLayout_3.Parent = ArrayList
+UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_3.Padding = UDim.new(0, 2)
+
+Handle.Name = "Handle"
+Handle.Parent = ArrayList
+Handle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Handle.BackgroundTransparency = 1.000
+Handle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Handle.BorderSizePixel = 0
+Handle.Size = UDim2.new(1, 0, 0.014, 0)
+Handle.Font = Enum.Font.Gotham
+Handle.Text = "Feature"
+Handle.TextColor3 = Color3.fromRGB(255, 255, 255)
+Handle.TextSize = 16.000
+Handle.TextWrapped = true
+Handle.Visible = false
+
+CurrBinding.Name = "CurrBinding"
+CurrBinding.Parent = UILIB
+CurrBinding.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+CurrBinding.BackgroundTransparency = 1.000
+CurrBinding.BorderColor3 = Color3.fromRGB(0, 0, 0)
+CurrBinding.BorderSizePixel = 0
+CurrBinding.Position = UDim2.new(0.861385226, 0, 0.886497021, 0)
+CurrBinding.Size = UDim2.new(0.0962349996, 0, 0.0579999983, 0)
+CurrBinding.Font = Enum.Font.Gotham
+CurrBinding.Text = "Bind: "
+CurrBinding.TextColor3 = Color3.fromRGB(255, 255, 255)
+CurrBinding.TextSize = 16.000
+CurrBinding.TextWrapped = true
+CurrBinding.Visible = false
+
+function library:CreateWindow(text, toggled, bool)
+	local tab = TabHandle:Clone()
+	tab.Visible = true
+	tab.tabname.Text = text
+	tab.Parent = TabList
+	tab.BackgroundTransparency = 1.000
+	tab.tabname.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+	if bool == nil then
+		tab.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				for i, v in next, Tabs:GetChildren() do
+					if v:IsA("Frame") and v ~= tab then
+						v.Visible = false
+					end
+				end
+				tab.Visible = true
+				toggled.Value = not toggled.Value
+			end
+		end)
+	end
+	library.Tabs[text] = {}
+	library.Tabs[text]["Items"] = {}
+	library.Tabs[text]["Tab"] = tab
+	library.Tabs[text]["Toggled"] = toggled
+	return tab
+end
+
+function library:CreateButton(tab, text, callback)
+	local button = ButtonHandle:Clone()
+	button.Visible = true
+	button.Parent = tab.tabback
+	button.Text = text
+	button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	button.MouseButton1Click:Connect(function()
+		callback()
+	end)
+	library.Tabs[tab.tabname.Text]["Items"][text] = button
+end
+
+function library:CreateArrayList()
+	for i, v in pairs(library.Tabs) do
+		for k, f in pairs(v.Items) do
+			if f:IsA("TextButton") then
+				if f.IsToggled.Value == true then
+					local item = Handle:Clone()
+					item.Visible = true
+					item.Parent = ArrayList
+					item.Text = f.Text
+					item.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
+			end
+		end
+	end
+end
+
+function library:CreateAButton(tab, text, callback)
+	local abutton = AButtonHandle:Clone()
+	abutton.Visible = true
+	abutton.Parent = tab.tabback
+	abutton.Text = text
+	abutton.MouseButton1Click:Connect(function()
+		callback()
+	end)
+	library.Tabs[tab.tabname.Text]["Items"][text] = abutton
+end
+
+function library:BindKey(text, callback)
+	local bind = bindlist[text]
+	if bind then
+		library.Bindings[bind] = callback
+	end
+end
+
+return library
