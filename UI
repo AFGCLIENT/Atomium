@@ -185,20 +185,18 @@ AButtonHandle.TextColor3 = Color3.fromRGB(0, 0, 0)
 AButtonHandle.TextSize = 14.000
 AButtonHandle.Visible = false
 
-
 ArrayList.Name = "ArrayList"
 ArrayList.Parent = UILIB
 ArrayList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ArrayList.BackgroundTransparency = 1.000
 ArrayList.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ArrayList.BorderSizePixel = 0
-ArrayList.Position = UDim2.new(0.797709942, 0, 0, 0)
-ArrayList.Size = UDim2.new(0.201, 0,1, 0)
+ArrayList.Position = UDim2.new(0.789715409, 0, 0.042019546, 0)
+ArrayList.Size = UDim2.new(0.196, 0,0.853, 0)
 
 UIListLayout_3.Parent = ArrayList
-UIListLayout_3.HorizontalAlignment = Enum.HorizontalAlignment.Right
 UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout_3.VerticalAlignment = Enum.VerticalAlignment.Bottom
+UIListLayout_3.Padding = UDim.new(0, 2)
 
 Handle.Name = "Handle"
 Handle.Parent = ArrayList
@@ -206,187 +204,100 @@ Handle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Handle.BackgroundTransparency = 1.000
 Handle.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Handle.BorderSizePixel = 0
-Handle.Position = UDim2.new(0.161137447, 0, 0, 0)
-Handle.Size = UDim2.new(0.725, 0,0.032, 0)
+Handle.Size = UDim2.new(1, 0, 0.014, 0)
+Handle.Font = Enum.Font.Gotham
+Handle.Text = "Feature"
+Handle.TextColor3 = Color3.fromRGB(255, 255, 255)
+Handle.TextSize = 16.000
+Handle.TextWrapped = true
 Handle.Visible = false
-Handle.Font = Enum.Font.GothamBold
-Handle.TextColor3 = Color3.fromRGB(255, 149, 0)
-Handle.TextSize = 13.000
-Handle.TextXAlignment = Enum.TextXAlignment.Right
 
 CurrBinding.Name = "CurrBinding"
 CurrBinding.Parent = UILIB
-CurrBinding.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CurrBinding.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
 CurrBinding.BackgroundTransparency = 1.000
 CurrBinding.BorderColor3 = Color3.fromRGB(0, 0, 0)
 CurrBinding.BorderSizePixel = 0
-CurrBinding.Position = UDim2.new(0.310114503, 0, 0.912955463, 0)
-CurrBinding.Size = UDim2.new(0.379, 0,0.071, 0)
-CurrBinding.Font = Enum.Font.GothamBold
-CurrBinding.Text = "Currently binding {1337}..."
-CurrBinding.TextColor3 = Color3.fromRGB(0, 0, 0)
-CurrBinding.TextSize = 30.000
+CurrBinding.Position = UDim2.new(0.861385226, 0, 0.886497021, 0)
+CurrBinding.Size = UDim2.new(0.0962349996, 0, 0.0579999983, 0)
+CurrBinding.Font = Enum.Font.Gotham
+CurrBinding.Text = "Bind: "
+CurrBinding.TextColor3 = Color3.fromRGB(255, 255, 255)
+CurrBinding.TextSize = 16.000
+CurrBinding.TextWrapped = true
 CurrBinding.Visible = false
 
-function library:CreateWindow(name: string, maincolor: Color3, corneredTabs: boolean, randomArrayColor: boolean)
-	local window = {}
-
-	Watermark.Text = name
-	Watermark.TextColor3 = maincolor
-	tabname.TextColor3 = maincolor
-	Handle.TextColor3 = maincolor
-	CurrBinding.TextColor3 = maincolor
-	
-	if corneredTabs == false then
-		titlecoverup:Destroy()
-		UICorner:Destroy()
-	end
-
-	function window:AddTab(name)
-		local tab = {}
-
-		local newtab = TabHandle:Clone()
-		newtab.Name = "Tab-"..name
-		newtab.Parent = TabList
-		newtab.tabname.Text = name
-
-		table.insert(library['Tabs'], newtab)
-
-		tab.Object = newtab
-		
-		function tab:AddButton(name, func)
-			local btn = {}
-			
-			local newbtn = ButtonHandle:Clone()
-			newbtn.Text = name
-			newbtn.Name = "Btn-"..name
-			newbtn.Parent = newtab.tabback
-			newbtn.Visible = true
-			
-			local newArrayObj = Handle:Clone()
-			newArrayObj.Parent = ArrayList
-			newArrayObj.Name = "Array-"..name
-			newArrayObj.Text = name
-			if randomArrayColor == true then
-				newArrayObj.TextColor3 = colors[math.random(1,#colors)]
-			end
-			
-			btn.Object = newbtn
-			btn.Module = name
-			btn.Function = func
-			btn.KeyBind = nil
-			
-			function btn:Toggle()
-				newArrayObj.Visible = not newbtn.IsToggled.Value
-				if newbtn.IsToggled.Value == false then
-					newbtn.IsToggled.Value = true
-					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {BackgroundColor3=maincolor})
-					local t2 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {TextColor3=Color3.fromRGB(0,0,0)})
-					t1:Play(); t2:Play()
-					task.spawn(function()
-						func(true)
-					end)
-				else
-					newbtn.IsToggled.Value = false
-					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {BackgroundColor3=Color3.fromRGB(40, 40, 40)})
-					local t2 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(0.5), {TextColor3=Color3.fromRGB(255,255,255)})
-					t1:Play(); t2:Play()
-					task.spawn(function()
-						func(false)
-					end)
-				end
-			end
-			
-			newbtn.MouseEnter:Connect(function()
-				if newbtn.IsToggled.Value == false then
-					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(1), {TextColor3=maincolor})
-					t1:Play()
-				end
-			end)
-			newbtn.MouseLeave:Connect(function()
-				if newbtn.IsToggled.Value == false then
-					local t1 = game:GetService("TweenService"):Create(newbtn, TweenInfo.new(1), {TextColor3=Color3.fromRGB(255,255,255)})
-					t1:Play()
-				end
-			end)
-			newbtn.MouseButton1Click:Connect(function()
-				btn:Toggle()
-			end)
-			newbtn.MouseButton2Click:Connect(function()
-				CurrBinding.Text = "Currently binding "..name.."..."
-				CurrBinding.Visible = true
-				local keybound = nil
-				game:GetService("UserInputService").InputBegan:Connect(function(input)
-					if keybound == nil then
-						if input.KeyCode == Enum.KeyCode.Return then
-							keybound = Enum.KeyCode.Unknown
-						else
-							if findbind(input.KeyCode) ~= "None" then
-								keybound = input.KeyCode
-							end
-						end
+function library:CreateWindow(text, toggled, bool)
+	local tab = TabHandle:Clone()
+	tab.Visible = true
+	tab.tabname.Text = text
+	tab.Parent = TabList
+	tab.BackgroundTransparency = 1.000
+	tab.tabname.BackgroundColor3 = Color3.fromRGB(30, 35, 35)
+	if bool == nil then
+		tab.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				for i, v in next, Tabs:GetChildren() do
+					if v:IsA("Frame") and v ~= tab then
+						v.Visible = false
 					end
-				end)
-				task.spawn(function()
-					repeat
-						wait(0.05)
-					until keybound ~= nil
-					if keybound == Enum.KeyCode.Unknown then
-						if table.find(library['Bindings'], btn) then
-							table.remove(library['Bindings'], table.find(library['Bindings'], btn))
-						end
-						CurrBinding.Text = name.." has been unbinded!"
-						task.spawn(function()
-							wait(1.25)
-							local t1 = game:GetService("TweenService"):Create(CurrBinding, TweenInfo.new(1), {TextTransparency=1})
-							t1:Play()
-							t1.Completed:Connect(function()
-								CurrBinding.Visible = false
-								CurrBinding.TextTransparency = 0
-							end)
-						end)
-					else
-						btn.KeyBind = keybound
-						table.insert(library['Bindings'], btn)
-						CurrBinding.Text = name.." has been binded to '"..findbind(keybound).."'!"
-						task.spawn(function()
-							wait(1.25)
-							local t1 = game:GetService("TweenService"):Create(CurrBinding, TweenInfo.new(1), {TextTransparency=1})
-							t1:Play()
-							t1.Completed:Connect(function()
-								CurrBinding.Visible = false
-								CurrBinding.TextTransparency = 0
-							end)
-						end)
-					end
-				end)
-			end)
-			
-			return btn
-		end
-		
-		return tab
+				end
+				tab.Visible = true
+				toggled.Value = not toggled.Value
+			end
+		end)
 	end
-	
-	return window
+	library.Tabs[text] = {}
+	library.Tabs[text]["Items"] = {}
+	library.Tabs[text]["Tab"] = tab
+	library.Tabs[text]["Toggled"] = toggled
+	return tab
 end
 
-local enabled = false
+function library:CreateButton(tab, text, callback)
+	local button = ButtonHandle:Clone()
+	button.Visible = true
+	button.Parent = tab.tabback
+	button.Text = text
+	button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	button.MouseButton1Click:Connect(function()
+		callback()
+	end)
+	library.Tabs[tab.tabname.Text]["Items"][text] = button
+end
 
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.RightShift then
-		enabled = not enabled
-		Watermark.Visible = enabled
-		for i,v in pairs(library['Tabs']) do
-			v.Visible = enabled
+function library:CreateArrayList()
+	for i, v in pairs(library.Tabs) do
+		for k, f in pairs(v.Items) do
+			if f:IsA("TextButton") then
+				if f.IsToggled.Value == true then
+					local item = Handle:Clone()
+					item.Visible = true
+					item.Parent = ArrayList
+					item.Text = f.Text
+					item.TextColor3 = colors[k % #colors + 1]  -- Cycle through colors
+				end
+			end
 		end
 	end
-	
-	for i,v in pairs(library['Bindings']) do
-		if v.KeyBind == input.KeyCode then
-			v:Toggle()
-		end
+end
+
+function library:CreateAButton(tab, text, callback)
+	local abutton = AButtonHandle:Clone()
+	abutton.Visible = true
+	abutton.Parent = tab.tabback
+	abutton.Text = text
+	abutton.MouseButton1Click:Connect(function()
+		callback()
+	end)
+	library.Tabs[tab.tabname.Text]["Items"][text] = abutton
+end
+
+function library:BindKey(text, callback)
+	local bind = bindlist[text]
+	if bind then
+		library.Bindings[bind] = callback
 	end
-end)
+end
 
 return library
